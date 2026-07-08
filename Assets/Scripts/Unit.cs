@@ -165,6 +165,28 @@ public class Unit : MonoBehaviour
         currentHP = Mathf.Min(currentHP + amount, maxHP);
     }
 
+    // Setter methods for GameSetup
+    public void SetName(string name)
+    {
+        unitName = name;
+    }
+
+    public void SetEnemy(bool enemy)
+    {
+        isEnemy = enemy;
+    }
+
+    public void SetCommander(bool commander)
+    {
+        isCommander = commander;
+    }
+
+    public void SetArmorTier(ArmorTier tier)
+    {
+        armorTier = tier;
+        InitializeHP();
+    }
+
     public List<UnitAction> GetCurrentActions()
     {
         foreach (UnitStateActions stateActionSet in stateActions)
