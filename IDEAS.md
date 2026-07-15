@@ -52,6 +52,15 @@
 
 ## Factions & Campaigns
 
+> **Note:** The full faction roster (David's Company, Saul's Kingdom, Jonathan's Followers, Philistines, Amalekites, Judah Militia, and minor peoples) is documented in `GDD.md`. This section captures expansion ideas beyond the MVP faction set.
+
+### Skirmish Mode (Post-MVP)
+- Faction selection screen (pick player faction vs enemy faction)
+- Recommended loadouts (like ROOT) for balanced pick-up games
+- Random map generation with varied objectives
+- Unlockable factions through campaign progress
+- See `GDD.md` for the current loadout table
+
 ### The Mighty Men
 - David's elite warriors from Scripture
 - Each could be a unique hero unit with special abilities
@@ -74,6 +83,13 @@
 - More Amalekite unit types (camel archers, war dogs?)
 - Deeper into nomadic territory — supply lines matter
 - Ambush scenarios where Amalekites start hidden
+
+### Minor Historical Peoples (Expansion)
+- **Girzites** — mentioned in 1 Samuel 27, David raids them while living among the Philistines
+- **Southern Geshurites** — also 1 Samuel 27, desert/semi-desert tribal people
+- **Gezerites** — textual tradition debated, could be treated as another small tribal group
+- All three are enemy-only factions with limited historical detail — good candidates for tasteful historical reconstruction
+- See `GDD.md` for full faction details
 
 ---
 

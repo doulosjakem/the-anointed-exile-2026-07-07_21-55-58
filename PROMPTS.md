@@ -1,38 +1,31 @@
-# Asset Generation Prompts — SDXL Turbo (Refined)
+# Asset Generation Prompts — The Exile King
 
-> Art Direction: **Hand-painted historical illustration / illuminated manuscript / parchment aesthetic**
-> NOT realistic. NOT fantasy. Watercolor and ink, muted earth tones, ancient chronicle style.
-> Current tool: Draw Things on iPhone with SDXL Turbo.
-> Try: SDXL v1 8-bit if Turbo keeps producing artifacts.
+> **Art Direction:** Hand-painted historical illustration / illuminated manuscript / aged parchment aesthetic.
+> **NOT realistic photography. NOT fantasy. NOT anime.**
+> Think: medieval manuscript marginalia, ancient chronicle illustrations, watercolor and ink line art.
+> Muted earth tones — ochre, umber, faded ochre, parchment tan, faded crimson, charcoal ink.
+> All figures wear historically accurate bronze age Levantine clothing: linen tunics, leather armor/vests, wool cloaks, sandals. Bronze weapons (short swords, spears with bronze tips, composite bows). No plate armor, no steel, no fantasy elements.
+> **Recommended tool:** ComfyUI + DreamShaper XL Lightning (see ART_GENERATION_GUIDE.md)
 
 ---
 
-## Golden Prompt Template
-
-Use this as your base prompt for all unit portraits. Adjust the description for each unit.
+## Universal Negative Prompt (all generations)
 
 ```
-ONE PERSON ONLY, solo portrait, waist-up, [UNIT DESCRIPTION], hand-painted historical illustration, watercolor and ink, aged parchment, board game card art, centered composition, family friendly
+photorealistic, hyperrealistic, realistic skin texture, photograph, cinematic lighting, ray tracing, 3d render, octane render, unity engine, video game screenshot, modern clothing, plate armor, steel armor, fantasy armor, elaborate armor, glowing, neon, bright colors, anime, manga, cartoon, digital art, illustration, signature, watermark, text, logo, ugly, deformed, blurry, low quality, worst quality, bad anatomy, extra limbs, merged body, duplicate, clone, two people, three people, group, crowd, nsfw, gore, blood
 ```
 
-**Standard Negative Prompt (add to every generation):**
+**Always use this negative prompt. Do not shorten it.**
 
-```
-two people, duplicate, twin, clone, double head, extra body, merged body, extra arms, extra hands, malformed weapon, blurry, watermark, text, photorealistic, anime, fantasy armor, modern clothing, gore, nsfw, ugly, deformed
-```
+---
 
---- 
+## Prompt Guidance
 
-## Technique Notes
-
-- **Start prompt with "ONE PERSON ONLY"** — significantly reduces duplicate figures
-- **Waist-up portraits** — avoids mangled legs/feet
-- **Generate equipment separately** — weapons/shields as standalone images, composite in Unity
-- **Use strong negative prompts** — copy the full negative list above every time
-- **Multiple generations per unit** — pick the best one, don't settle for artifacts
-- **SDXL Turbo limitation:** frequently produces extra heads, merged bodies, mangled hands. When this happens, either:
-  - Regenerate with same seed but stronger negative prompt
-  - Switch to SDXL v1 8-bit (slower but cleaner)
+- **Command card art:** Do NOT prefix with "ONE PERSON ONLY" — these are tactical scenes with multiple figures
+- **Unit tokens:** "ONE PERSON ONLY" is fine for these — single figure in a circular medallion
+- **Don't skip the negative prompt** — paste the full list every time
+- **Batch 5+ per prompt** — pick the best result
+- **See ART_GENERATION_GUIDE.md** for full ComfyUI setup, workflow diagrams, and step-by-step instructions
 
 ---
 
@@ -96,13 +89,104 @@ Full prompt (unit name + description + suffix). Add negative prompt from the tem
 | Asset | Prompt |
 |---|---|
 | **End Turn button** | `rounded rectangle, aged parchment color, ink border, game UI, flat design, 200x60` |
-| **Overwork button** | `rounded rectangle, faded red-earth color, ink border, game UI, flat design, 200x60` |
 | **Command card back** | `blank aged parchment card, rectangular, ink border, hand-painted texture, 250x350` |
 | **HP bar background** | `thin bar, dark brown ink wash, game UI, 100x10` |
 | **HP bar fill** | `thin bar, faded crimson, game UI, 100x10` |
 | **Action icon (move)** | `simple sandal footprint, ink drawing style, white on transparent, 32x32` |
 | **Action icon (attack)** | `simple bronze sword, ink drawing style, white on transparent, 32x32` |
 | **Reward panel** | `aged parchment panel, dark edges, ink border, rounded corners, 400x300` |
+| **Card frame template** | `blank rectangular card frame, aged parchment border, ink line art style, top half and bottom half separated by a thin decorative line, space for illustration, 250x350` |
+
+---
+
+## Command Card Art (250×350, ink & parchment)
+
+Generate card art for the top half of each Command Card. Style matches the unit portrait aesthetic.
+
+| Card | Prompt |
+|---|---|
+| **Flanking Maneuver** | `two soldiers positioned on opposite sides of an enemy, pincer movement diagram, ink drawing on parchment, tactical formation, hand-painted board game card art, 250x350` |
+| **Forced March** | `three soldiers running in a line, dust at their feet, urgency and speed, ink drawing on parchment, hand-painted board game card art, 250x350` |
+| **Volley** | `two archers aiming upward, arrows in flight arching through the air, ink drawing on parchment, hand-painted board game card art, 250x350` |
+| **Hold the Line** | `a shield wall of three soldiers braced for impact, spears angled forward, ink drawing on parchment, hand-painted board game card art, 250x350` |
+| **Rally** | `a commander with arm raised, soldiers gathering around, banner or standard, ink drawing on parchment, hand-painted board game card art, 250x350` |
+| **Ambush** | `soldiers hidden behind rocks, one signaling silence, surprise attack formation, ink drawing on parchment, hand-painted board game card art, 250x350` |
+| **Coordinated Strike** | `two soldiers attacking the same target simultaneously, crossed weapons, ink drawing on parchment, hand-painted board game card art, 250x350` |
+| **Reform Ranks** | `disorganized soldiers moving back into formation, regrouping, ink drawing on parchment, hand-painted board game card art, 250x350` |
+
+---
+
+## Generation Protocol
+
+Use this protocol for all art generation in ComfyUI + DreamShaper XL Lightning.
+
+### Universal Settings
+- **Model:** DreamShaper XL Lightning
+- **Sampler:** DPM++ SDE Karras
+- **Steps:** 4–6
+- **CFG Scale:** 2–3
+- **Batch count:** 5 per prompt (generate 5, pick the best)
+
+### Universal Negative Prompt (always use this)
+```
+blurry, watermark, text, signature, ugly, deformed, photorealistic, anime, fantasy armor, modern clothing, gore, nsfw, extra limbs, bad anatomy, two people, duplicate, twin, clone, double head, extra body, merged body, malformed weapon
+```
+
+### Complete Generation Queue (101 images total)
+
+See `ART_GENERATION_GUIDE.md` for full ComfyUI setup instructions.
+
+#### Batch 1 — Command Card Art (512×768, 5 samples each = 40 images)
+| File Prefix | Prompt |
+|---|---|
+| `card_flanking_maneuver` | `ONE PERSON ONLY, two bronze age soldiers in a pincer movement formation, one on each side attacking a single enemy, tactical diagram style, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+| `card_forced_march` | `ONE PERSON ONLY, three bronze age soldiers running urgently in a line, dust kicking up at their feet, momentum and speed, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+| `card_volley` | `ONE PERSON ONLY, two bronze age archers aiming upward at an angle, arrows in flight arcing through the air above, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+| `card_hold_the_line` | `ONE PERSON ONLY, a shield wall of three bronze age soldiers braced for impact, spears angled forward defensively, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+| `card_rally` | `ONE PERSON ONLY, a bronze age commander with arm raised rallying his men, soldiers gathered around a banner, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+| `card_shield_wall` | `ONE PERSON ONLY, three bronze age soldiers with interlocking round shields forming a defensive wall, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+| `card_coordinated_strike` | `ONE PERSON ONLY, two bronze age soldiers attacking the same target from different angles, weapons crossing, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+| `card_desperate_stand` | `ONE PERSON ONLY, a single bronze age soldier holding ground against multiple oncoming enemies, defiant stance, ink drawing on aged parchment, hand-painted historical illustration, board game card art, centered composition, family friendly` |
+
+#### Batch 2 — Card Frame (512×768, 3 samples = 3 images)
+| File Prefix | Prompt |
+|---|---|
+| `card_frame_template` | `blank rectangular card frame, aged parchment background, ornate ink border decoration, top half separated from bottom half by thin decorative line, hand-painted board game card style, 512x768, family friendly` |
+
+#### Batch 3 — Unit Token Icons (256×256, 5 samples each = 40 images)
+| File Prefix | Prompt |
+|---|---|
+| `token_david` | `simple ink silhouette icon of a bronze age king figure with crown and staff, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+| `token_swordsman` | `simple ink silhouette icon of a bronze age soldier with short sword and round shield, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+| `token_spearman` | `simple ink silhouette icon of a bronze age soldier holding a long spear, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+| `token_slinger` | `simple ink silhouette icon of a bronze age slinger with sling raised, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+| `token_archer` | `simple ink silhouette icon of a bronze age archer drawing a bow, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+| `token_scout` | `simple ink silhouette icon of a bronze age scout running, light clothing, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+| `token_chieftain` | `simple ink silhouette icon of a bronze age chieftain with headdress and spear, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+| `token_raider` | `simple ink silhouette icon of a bronze age desert raider with curved sword, on aged parchment background, board game token style, centered, 256x256, family friendly` |
+
+#### Batch 4 — Hex Tiles (512×512, 3 samples each = 9 images)
+| File Prefix | Prompt |
+|---|---|
+| `hex_sand` | `top-down flat hex tile, sandy desert terrain, warm beige, parchment texture, subtle grain, watercolor wash, board game style, seamless, 512x512` |
+| `hex_rock` | `top-down flat hex tile, rocky gravel, gray-brown, stone texture, watercolor wash, board game style, seamless, 512x512` |
+| `hex_grass` | `top-down flat hex tile, dry savanna grass, warm green-brown, ink wash, board game style, seamless, 512x512` |
+
+#### Batch 5 — UI Elements (256×256, 3 samples each = 9 images)
+| File Prefix | Prompt |
+|---|---|
+| `ui_card_back` | `blank aged parchment card, rectangular, ink border, hand-painted texture, game UI, 250x350, transparent background` |
+| `ui_hp_bar_bg` | `thin horizontal bar, dark brown ink wash, game UI element, 100x10, transparent background` |
+| `ui_hp_bar_fill` | `thin horizontal bar, faded crimson red, game UI element, 100x10, transparent background` |
+
+### Output Naming Convention
+Generated files follow this pattern:
+```
+[type]_[name]_[batch#].png
+```
+Where batch# = 001, 002, 003, etc.
+
+After selection: rename to `[type]_[name].png` and copy to `Assets/Textures/`.
 
 ---
 
