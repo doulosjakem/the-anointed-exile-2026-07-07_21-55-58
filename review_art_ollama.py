@@ -55,12 +55,12 @@ EXPECTED_PROMPTS = {
     "march": "scene in illuminated manuscript style, bronze age Levantine Israelite soldiers marching in organized column across dusty ground, spears and shields at sides, linen tunics and leather vests, brown wool cloaks, steady pace, aged parchment background, ink outlines with muted watercolor wash in ochre and umber, hand-painted historical illustration, board game card art, family friendly, NOT medieval, NOT fantasy, NOT European",
     "engage": "scene in illuminated manuscript style, bronze age Levantine Israelite soldiers charging forward with weapons raised, bronze short swords and spears, shields forward, linen tunics, leather vests, dust and motion, aged parchment background, ink outlines with muted watercolor wash in ochre and faded crimson, hand-painted historical illustration, board game card art, family friendly, NOT medieval, NOT fantasy, NOT European",
     # Equipment & UI
-    "bronze-sword": "bronze age short sword, leaf-shaped blade, single person holding, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
-    "leather-shield": "round leather shield, bronze rim, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
-    "spear": "bronze-tipped wooden spear, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
-    "sling": "leather sling with pouch, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
-    "bow": "short composite bow, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
-    "camel": "dromedary camel, side view, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
+    "bronze-sword": "bronze age short sword, leaf-shaped blade, isolated, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
+    "leather-shield": "round leather shield, bronze rim, isolated, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
+    "spear": "bronze-tipped wooden spear, isolated, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
+    "sling": "leather sling with pouch, isolated, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
+    "bow": "short composite bow, isolated, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
+    "camel": "dromedary camel, side view, isolated, hand-painted illustration, watercolor, transparent background, NOT medieval, NOT fantasy, NOT European",
     "end-turn-button": "rounded rectangle button shape, aged warm parchment color, dark ink border outline, flat medieval manuscript style, game UI element, hand-painted texture, isolated on transparent background, family friendly",
     "command-card-back": "blank aged parchment card, rectangular, ink border, hand-painted texture, family friendly",
     "card-frame-template": "blank rectangular playing card, aged parchment background, ornate decorative ink border in dark brown, thin horizontal line dividing the card into top and bottom halves, corner ornaments, medieval manuscript border style, no text, hand-painted board game card",
@@ -68,12 +68,36 @@ EXPECTED_PROMPTS = {
     "hp_bar_fill": "thin horizontal bar shape, faded crimson red ink wash, rough hand-painted edges, game UI health bar fill, isolated on transparent background, family friendly",
     "reward_panel": "large aged parchment panel texture, darker edges, vignette effect, ink border with corner ornaments, rounded rectangle shape, game UI panel, hand-painted texture, isolated on transparent background, family friendly",
     # Hex Tiles
-    "hex_sand": "top-down view of a flat hexagonal tile, sandy desert terrain, warm beige and light brown, subtle parchment-like texture, very fine grain, watercolor wash with soft edges, tileable seamless pattern, board game style, hand-painted texture, no grid lines",
-    "hex_rock": "top-down view of a flat hexagonal tile, rocky gravel and small stones, gray-brown and warm umber tones, parchment texture overlay, watercolor wash, tileable seamless pattern, board game style, hand-painted texture, no grid lines",
-    "hex_grass": "top-down view of a flat hexagonal tile, dry savanna grass on hard earth, warm green-brown and ochre tones, dry grass textures, watercolor wash, tileable seamless pattern, board game style, hand-painted texture, no grid lines",
-    "grass": "top-down view of a flat hexagonal tile, dry savanna grass on hard earth, warm green-brown and ochre tones, dry grass textures, watercolor wash, tileable seamless pattern, board game style, hand-painted texture, no grid lines",
-    "rock": "top-down view of a flat hexagonal tile, rocky gravel and small stones, gray-brown and warm umber tones, parchment texture overlay, watercolor wash, tileable seamless pattern, board game style, hand-painted texture, no grid lines",
-    "sand": "top-down view of a flat hexagonal tile, sandy desert terrain, warm beige and light brown, subtle parchment-like texture, very fine grain, watercolor wash with soft edges, tileable seamless pattern, board game style, hand-painted texture, no grid lines",
+    "hex_sand": (
+        "top-down view of a flat hexagonal tile, sandy desert terrain, warm beige and light brown, "
+        "subtle parchment-like texture, very fine grain, watercolor wash with soft edges, "
+        "tileable seamless pattern, board game style, hand-painted texture, no grid lines"
+    ),
+    "hex_rock": (
+        "top-down view of a flat hexagonal tile, rocky gravel and small stones, gray-brown and warm umber tones, "
+        "parchment texture overlay, watercolor wash, tileable seamless pattern, board game style, "
+        "hand-painted texture, no grid lines"
+    ),
+    "hex_grass": (
+        "top-down view of a flat hexagonal tile, dry savanna grass on hard earth, "
+        "warm green-brown and ochre tones, dry grass textures, watercolor wash, "
+        "tileable seamless pattern, board game style, hand-painted texture, no grid lines"
+    ),
+    "grass": (
+        "top-down view of a flat hexagonal tile, dry savanna grass on hard earth, "
+        "warm green-brown and ochre tones, dry grass textures, watercolor wash, "
+        "tileable seamless pattern, board game style, hand-painted texture, no grid lines"
+    ),
+    "rock": (
+        "top-down view of a flat hexagonal tile, rocky gravel and small stones, gray-brown and warm umber tones, "
+        "parchment texture overlay, watercolor wash, tileable seamless pattern, board game style, "
+        "hand-painted texture, no grid lines"
+    ),
+    "sand": (
+        "top-down view of a flat hexagonal tile, sandy desert terrain, warm beige and light brown, "
+        "subtle parchment-like texture, very fine grain, watercolor wash with soft edges, "
+        "tileable seamless pattern, board game style, hand-painted texture, no grid lines"
+    ),
 }
 
 

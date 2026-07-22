@@ -14,12 +14,27 @@ import subprocess
 import shutil
 
 COMFYUI_DIR = r"D:\Jake\ComfyUI_windows_portable\ComfyUI"
+COMFYUI_ROOT = r"D:\Jake\ComfyUI_windows_portable"
+COMFYUI_PYTHON = r"D:\Jake\ComfyUI_windows_portable\python_embeded\python.exe"
 OUTPUT_BASE = os.path.join(COMFYUI_DIR, r"output\ComfyUI\annointed-exile")
 CHECKPOINT = "dreamshaperXL_sfwLightningDPMSDE.safetensors"
 
-UNIVERSAL_NEGATIVE = "photorealistic, hyperrealistic, realistic skin texture, photograph, cinematic lighting, ray tracing, 3d render, octane render, unity engine, video game screenshot, modern clothing, plate armor, steel armor, chainmail, scale armor, fantasy armor, elaborate armor, longbow, long sword, greatsword, crossguard, medieval helmet, horned helmet, winged helmet, knight, crusader, viking, samurai, European castle, stone castle, heraldry, coat of arms, shield with cross, shield with lion, glowing, neon, bright colors, anime, manga, cartoon, digital art, illustration, signature, watermark, text, logo, ugly, deformed, blurry, low quality, worst quality, bad anatomy, extra limbs, merged body, duplicate, clone, two people, three people, group, crowd, nsfw, gore, blood"
+UNIVERSAL_NEGATIVE = "photorealistic, hyperrealistic, realistic skin texture, photograph, cinematic lighting, ray tracing, 3d render, octane render, unity engine, video game screenshot, modern clothing, plate armor, steel armor, chainmail, scale armor, fantasy armor, elaborate armor, longbow, long sword, greatsword, crossguard, medieval helmet, horned helmet, winged helmet, knight, crusader, viking, samurai, European castle, stone castle, heraldry, coat of arms, shield with cross, shield with lion, glowing, neon, bright colors, anime, manga, cartoon, digital art, illustration, signature, watermark, text, logo, ugly, deformed, blurry, low quality, worst quality, bad anatomy, extra limbs, merged body, duplicate, clone, two people, three people, group, crowded, person, people, human, hands, fingers, nsfw, gore, blood"
 
-POSITIVE_SUFFIX = ", hand-painted historical illustration, watercolor and ink on aged parchment, board game card art, family friendly, NOT medieval, NOT fantasy, NOT European"
+CHARACTER_POSITIVE_SUFFIX = ", hand-painted historical illustration, watercolor and ink on aged parchment, board game card art, centered composition, family friendly, NOT medieval, NOT fantasy, NOT European"
+CHARACTER_NEGATIVE_EXTRA = ""
+
+EQUIPMENT_POSITIVE_SUFFIX = ", isolated single object centered on pure white background, clean cutout, hand-painted historical illustration, watercolor and ink, no background, no person, no hands, family friendly, NOT medieval, NOT fantasy, NOT European"
+EQUIPMENT_NEGATIVE_EXTRA = "person, people, human, hands, fingers, body, figure, face, background, scenery, landscape, aged parchment, parchment texture, board game card art, composition, scene"
+
+TILE_POSITIVE_SUFFIX = ", top-down flat seamless hex tile texture, parchment texture overlay, watercolor ink wash style, muted earth tones, no grid lines, no borders, no text, board game style, family friendly, NOT medieval, NOT fantasy, NOT European"
+TILE_NEGATIVE_EXTRA = "grid lines, borders, text, logo, modern, perspective, 3d, shadow, person, people, human, building, structure, creature, animal"
+
+UI_POSITIVE_SUFFIX = ", flat vector-like UI element, clean vector art style, simple shape, centered, no text, no background, family friendly, NOT medieval, NOT fantasy, NOT European"
+UI_NEGATIVE_EXTRA = "hand-painted, watercolor, aged parchment, aged paper, ink wash, textured paper, background, scene, person, people, human, text, logo"
+
+CARD_POSITIVE_SUFFIX = ", scene in illuminated manuscript style, aged parchment background, ink outlines with muted watercolor wash, hand-painted historical illustration, board game card art, family friendly, NOT medieval, NOT fantasy, NOT European"
+CARD_NEGATIVE_EXTRA = "photorealistic, 3d render, modern clothing, anime, manga, cartoon, digital art, text, logo, watermark, signature, ugly, deformed, blurry, low quality"
 
 EXPECTED_PROMPTS = {}
 
@@ -38,13 +53,55 @@ def resolve_prompt(prompt_key):
         return EXPECTED_PROMPTS[prompt_key]
     return prompt_key.replace("-", " ")
 
+def classify_asset_type(item):
+    prompt_key = item.get("prompt_key", "")
+    subfolder = item.get("output_subfolder", "").lower()
+    
+    if any(x in prompt_key for x in ["hex_", "tile", "grass", "rock", "sand"]):
+        return "tile"
+    if any(x in prompt_key for x in ["swordsmen-advance", "archer-volley", "spear-wall", "slinger-skirmish", "scout-recon", "refugee-aid", "davids-leadership", "march", "engage"]):
+        return "card"
+    if any(x in prompt_key for x in ["end-turn", "command-card", "card-frame", "hp-bar", "reward-panel"]) or "ui" in subfolder:
+        return "ui"
+    if any(x in prompt_key for x in ["bronze-sword", "leather-shield", "spear", "sling", "bow", "camel"]) or "equipment" in subfolder:
+        return "equipment"
+    return "character"
+
+
 def build_workflow(item, seed):
     prompt_key = item["prompt_key"]
-    positive = resolve_prompt(prompt_key) + POSITIVE_SUFFIX
-    negative = UNIVERSAL_NEGATIVE
+    asset_type = classify_asset_type(item)
+    
+    positive = resolve_prompt(prompt_key)
+    
+    if asset_type == "character":
+        positive += CHARACTER_POSITIVE_SUFFIX
+    elif asset_type == "equipment":
+        positive += EQUIPMENT_POSITIVE_SUFFIX
+    elif asset_type == "tile":
+        positive += TILE_POSITIVE_SUFFIX
+    elif asset_type == "ui":
+        positive += UI_POSITIVE_SUFFIX
+    elif asset_type == "card":
+        positive += CARD_POSITIVE_SUFFIX
+    else:
+        positive += CHARACTER_POSITIVE_SUFFIX
+
+    negative_parts = [UNIVERSAL_NEGATIVE]
+    if asset_type == "equipment":
+        negative_parts.append(EQUIPMENT_NEGATIVE_EXTRA)
+    elif asset_type == "tile":
+        negative_parts.append(TILE_NEGATIVE_EXTRA)
+    elif asset_type == "ui":
+        negative_parts.append(UI_NEGATIVE_EXTRA)
+    elif asset_type == "card":
+        negative_parts.append(CARD_NEGATIVE_EXTRA)
+    negative = ", ".join(negative_parts)
+    
     width = item.get("width", 512)
     height = item.get("height", 512)
     count = item.get("count", 1)
+    batch_size = item.get("batch_size", max(1, count))
     steps = item.get("steps", 4)
     cfg = item.get("cfg", 3)
     prefix = item.get("filename_prefix", "ComfyUI")
@@ -76,7 +133,7 @@ def build_workflow(item, seed):
             "inputs": {
                 "width": width,
                 "height": height,
-                "batch_size": count
+                "batch_size": item.get("batch_size", count)
             }
         },
         "6": {
@@ -127,18 +184,22 @@ def submit_workflow(workflow):
 
 def wait_for_prompt(prompt_id, timeout=600):
     start = time.time()
+    was_running = False
     while time.time() - start < timeout:
         try:
-            req = urllib.request.Request(f"http://127.0.0.1:8188/history/{prompt_id}", method="GET")
+            req = urllib.request.Request(f"http://127.0.0.1:8188/queue", method="GET")
             with urllib.request.urlopen(req, timeout=10) as resp:
-                history = json.loads(resp.read().decode("utf-8"))
-                if prompt_id in history:
-                    entry = history[prompt_id]
-                    status = entry.get("status", {})
-                    if status.get("completed", False):
-                        return entry
-                    if status.get("interrupted", False):
-                        raise RuntimeError("Generation interrupted")
+                queue = json.loads(resp.read().decode("utf-8"))
+                running = queue.get("queue_running", [])
+                pending = queue.get("queue_pending", [])
+                is_running = any(item.get("prompt_id") == prompt_id for item in running)
+                if is_running:
+                    was_running = True
+                elif was_running:
+                    return {}
+                elif not running and not pending:
+                    time.sleep(2)
+                    return {}
         except Exception:
             pass
         time.sleep(2)
@@ -164,9 +225,8 @@ def move_outputs(item, manifest_entry):
 
 
 def start_comfyui():
-    python = sys.executable
-    cmd = [python, "main.py", "--auto-launch"]
-    proc = subprocess.Popen(cmd, cwd=COMFYUI_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    cmd = [COMFYUI_PYTHON, "-s", "ComfyUI\\main.py", "--lowvram", "--windows-standalone-build"]
+    proc = subprocess.Popen(cmd, cwd=COMFYUI_ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return proc
 
 
@@ -226,20 +286,25 @@ def main():
         for idx, item in enumerate(queue):
             item_id = item.get("id", f"item-{idx}")
             count = item.get("count", 1)
-            seed = hash(item_id + str(time.time())) % (2**31)
-            print(f"[{idx+1}/{total_items}] {item_id} ({count} images, seed={seed}) ... ", end="", flush=True)
-            workflow = build_workflow(item, seed)
-            prompt_id = submit_workflow(workflow)
-            wait_for_prompt(prompt_id)
-            moved = move_outputs(item, {})
-            print(f"done ({len(moved)} files)")
+            batch_size = item.get("batch_size", max(1, count))
+            base_seed = hash(item_id + str(time.time())) % (2**31)
+            print(f"[{idx+1}/{total_items}] {item_id} ({count} images, batch={batch_size}) ... ", end="", flush=True)
+            moved_all = []
+            for i in range(count):
+                seed = base_seed + i
+                workflow = build_workflow(item, seed)
+                prompt_id = submit_workflow(workflow)
+                wait_for_prompt(prompt_id)
+                moved = move_outputs(item, {})
+                moved_all.extend(moved)
+            print(f"done ({len(moved_all)} files)")
             manifest.append({
                 "id": item_id,
                 "prompt_key": item.get("prompt_key"),
                 "output_subfolder": item.get("output_subfolder"),
                 "count": count,
-                "seed": seed,
-                "files": moved
+                "seed": base_seed,
+                "files": moved_all
             })
     finally:
         if not args.no_shutdown:

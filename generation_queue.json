@@ -8,7 +8,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "assets/tiles",
-    "filename_prefix": "hex_grass"
+    "filename_prefix": "hex_grass",
+    "batch_size": 1
   },
   {
     "id": "tiles-rock",
@@ -19,7 +20,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "assets/tiles",
-    "filename_prefix": "hex_rock"
+    "filename_prefix": "hex_rock",
+    "batch_size": 1
   },
   {
     "id": "tiles-sand",
@@ -30,7 +32,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "assets/tiles",
-    "filename_prefix": "hex_sand"
+    "filename_prefix": "hex_sand",
+    "batch_size": 1
   },
   {
     "id": "equipment-bronze-sword",
@@ -41,7 +44,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "equipment",
-    "filename_prefix": "bronze-sword"
+    "filename_prefix": "bronze-sword",
+    "batch_size": 1
   },
   {
     "id": "equipment-leather-shield",
@@ -52,7 +56,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "equipment",
-    "filename_prefix": "leather-shield"
+    "filename_prefix": "leather-shield",
+    "batch_size": 1
   },
   {
     "id": "equipment-spear",
@@ -63,7 +68,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "equipment",
-    "filename_prefix": "spear"
+    "filename_prefix": "spear",
+    "batch_size": 1
   },
   {
     "id": "equipment-sling",
@@ -74,7 +80,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "equipment",
-    "filename_prefix": "sling"
+    "filename_prefix": "sling",
+    "batch_size": 1
   },
   {
     "id": "equipment-bow",
@@ -85,7 +92,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "equipment",
-    "filename_prefix": "bow"
+    "filename_prefix": "bow",
+    "batch_size": 1
   },
   {
     "id": "equipment-camel",
@@ -96,7 +104,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "equipment",
-    "filename_prefix": "camel"
+    "filename_prefix": "camel",
+    "batch_size": 1
   },
   {
     "id": "card-swordsmen-advance",
@@ -107,7 +116,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "swordsmen-advance"
+    "filename_prefix": "swordsmen-advance",
+    "batch_size": 1
   },
   {
     "id": "card-archer-volley",
@@ -118,7 +128,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "archer-volley"
+    "filename_prefix": "archer-volley",
+    "batch_size": 1
   },
   {
     "id": "card-spear-wall",
@@ -129,7 +140,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "spear-wall"
+    "filename_prefix": "spear-wall",
+    "batch_size": 1
   },
   {
     "id": "card-slinger-skirmish",
@@ -140,7 +152,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "slinger-skirmish"
+    "filename_prefix": "slinger-skirmish",
+    "batch_size": 1
   },
   {
     "id": "card-scout-recon",
@@ -151,7 +164,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "scout-recon"
+    "filename_prefix": "scout-recon",
+    "batch_size": 1
   },
   {
     "id": "card-refugee-aid",
@@ -162,7 +176,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "refugee-aid"
+    "filename_prefix": "refugee-aid",
+    "batch_size": 1
   },
   {
     "id": "card-davids-leadership",
@@ -173,7 +188,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "davids-leadership"
+    "filename_prefix": "davids-leadership",
+    "batch_size": 1
   },
   {
     "id": "card-march",
@@ -184,7 +200,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "march"
+    "filename_prefix": "march",
+    "batch_size": 1
   },
   {
     "id": "card-engage",
@@ -195,7 +212,8 @@
     "width": 768,
     "height": 512,
     "output_subfolder": "card",
-    "filename_prefix": "engage"
+    "filename_prefix": "engage",
+    "batch_size": 1
   },
   {
     "id": "ui-end-turn-button",
@@ -206,7 +224,8 @@
     "width": 512,
     "height": 256,
     "output_subfolder": "ui-elements",
-    "filename_prefix": "end-turn-button"
+    "filename_prefix": "end-turn-button",
+    "batch_size": 1
   },
   {
     "id": "ui-command-card-back",
@@ -217,7 +236,8 @@
     "width": 512,
     "height": 768,
     "output_subfolder": "ui-elements",
-    "filename_prefix": "command-card-back"
+    "filename_prefix": "command-card-back",
+    "batch_size": 1
   },
   {
     "id": "ui-card-frame-template",
@@ -228,7 +248,8 @@
     "width": 512,
     "height": 768,
     "output_subfolder": "ui-elements",
-    "filename_prefix": "card-frame-template"
+    "filename_prefix": "card-frame-template",
+    "batch_size": 1
   },
   {
     "id": "ui-hp-bar-bg",
@@ -239,7 +260,8 @@
     "width": 256,
     "height": 64,
     "output_subfolder": "ui-elements",
-    "filename_prefix": "hp-bar-bg"
+    "filename_prefix": "hp-bar-bg",
+    "batch_size": 1
   },
   {
     "id": "ui-hp-bar-fill",
@@ -250,7 +272,8 @@
     "width": 256,
     "height": 64,
     "output_subfolder": "ui-elements",
-    "filename_prefix": "hp-bar-fill"
+    "filename_prefix": "hp-bar-fill",
+    "batch_size": 1
   },
   {
     "id": "ui-reward-panel",
@@ -261,7 +284,8 @@
     "width": 512,
     "height": 384,
     "output_subfolder": "ui-elements",
-    "filename_prefix": "reward-panel"
+    "filename_prefix": "reward-panel",
+    "batch_size": 1
   },
   {
     "id": "portrait-amalekite-archer",
@@ -272,7 +296,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "player-units/amalekites",
-    "filename_prefix": "archer"
+    "filename_prefix": "archer",
+    "batch_size": 1
   },
   {
     "id": "portrait-amalekite-slinger",
@@ -283,7 +308,8 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "player-units/amalekites",
-    "filename_prefix": "slinger"
+    "filename_prefix": "slinger",
+    "batch_size": 1
   },
   {
     "id": "portrait-amalekite-scout",
@@ -294,6 +320,7 @@
     "width": 512,
     "height": 512,
     "output_subfolder": "player-units/amalekites",
-    "filename_prefix": "scout"
+    "filename_prefix": "scout",
+    "batch_size": 1
   }
 ]
